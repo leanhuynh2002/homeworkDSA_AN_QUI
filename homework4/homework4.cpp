@@ -12,7 +12,7 @@ int main()
 	try {
 		printPriority(l);
 
-		Remove(l, "Vo Thao");
+		Remove(l, "Le An");
 
 		printPriority(l);
 	}
