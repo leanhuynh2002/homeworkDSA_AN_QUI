@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Priority.h"
+#include "TreePriority.h"
 using namespace std;
 
 int main()
@@ -11,10 +12,6 @@ int main()
 	// all works
 	try {
 		printPriority(l);
-
-		Remove(l, "Le An");
-
-		printPriority(l);
 	}
 	catch (const char* message) {
 		cout << message << endl;
@@ -22,5 +19,18 @@ int main()
 
 	// delete all memories
 	deleteAllPiority(l);
+
+
+	try {
+		TreePrio* root = readFile("D:\\HW4-Priority.txt");
+		cout << "\n---------------------------------------------------------\n";
+		changePriority(root, "Thao", 5);
+		printConsole(root);
+		deleteAllNode(root);
+	}
+	catch (const char* str) {
+		cout << str << endl;
+	}
+
 	return 1;
 }

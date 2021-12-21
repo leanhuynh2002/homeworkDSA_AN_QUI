@@ -4,14 +4,9 @@
 #include <string>
 using namespace std;
 
-void swap(PrioQue* p1, PrioQue* p2)
-{
-	swap(p1->ID, p2->ID);
-	swap(p1->Order, p2->Order);
-	swap(p1->Priority, p2->Priority);
-	swap(p1->next, p2->next); 
-}
+//----------------------------------------------------
 
+// compare two node different
 bool Condition(PrioQue* p1, PrioQue* p2)
 {
 	if (p1->Priority > p2->Priority)
@@ -28,8 +23,7 @@ bool Condition(PrioQue* p1, PrioQue* p2)
 	throw "Error from input data !\n";
 }
 
-//---------------------------------------------------------
-
+// sort the list
 void Sort(List& l, PrioQue* node)
 {
 	if (!isEmpty(l)) {
@@ -41,6 +35,9 @@ void Sort(List& l, PrioQue* node)
 	}
 }
 
+//-----------------------------------------------------
+
+// check the list is empty
 bool isEmpty(List& root)
 {
 	if (root.head == NULL)
@@ -48,6 +45,9 @@ bool isEmpty(List& root)
 	return false;
 }
 
+//-----------------------------------------------------
+
+// insert one node into list
 void Insert(List& l, PrioQue* node)
 {
 	// insert for root
@@ -100,6 +100,7 @@ void deleteNode(PrioQue* node)
 	}
 }
 
+// delete all node
 void deleteAllPiority(List& l)
 {
 	// contain the deleted node
@@ -113,21 +114,9 @@ void deleteAllPiority(List& l)
 	}
 }
 
-//
-//PrioQue* Extract()
-//{
-//
-//}
-//
-//void Remove(PrioQue* root, string ID)
-//{
-//	
-//}
-//
-//void changePriority(PrioQue* root, string ID);
-
 //---------------------------------------------------------------
 
+// read a line in file txt
 void getData(fstream& file, List& l)
 {
 	unsigned int Order, Priority;
@@ -137,6 +126,9 @@ void getData(fstream& file, List& l)
 	while (!file.eof()) {
 		file >> Order >> Priority;
 		getline(file, ID);
+		if (ID == "") {
+			return;
+		}
 		ID.erase(0, 1);
 		node = new PrioQue{ ID, Order, Priority };
 		Insert(l, node);
@@ -144,6 +136,7 @@ void getData(fstream& file, List& l)
 	}
 }
 
+// load data
 void readFile(string nameFile, List& l)
 {
 	fstream file(nameFile, ios::in);
@@ -156,11 +149,13 @@ void readFile(string nameFile, List& l)
 
 //----------------------------------------------------------------
 
+// print a node
 void printNode(PrioQue* node)
 {
 	cout << node->ID << " " << node->Order << " " << node->Priority;
 }
 
+// print all nodes
 void printPriority(List& l)
 {
 	for (PrioQue* p = l.head; p != NULL; p = p->next) {
@@ -171,6 +166,7 @@ void printPriority(List& l)
 
 //-----------------------------------------------------
 
+// find the node and remove it
 PrioQue* findAndRemove(List& l, const string& ID)
 {
 	PrioQue* pre = NULL, * pnext = l.head;
@@ -192,7 +188,7 @@ PrioQue* findAndRemove(List& l, const string& ID)
 	return NULL;
 }
 
-
+// change the priority of one node contains given priority
 void changPriority(List& l, string ID, int inputPriority)
 {
 	PrioQue* foundNode = findAndRemove(l, ID);
@@ -206,6 +202,7 @@ void changPriority(List& l, string ID, int inputPriority)
 
 //--------------------------------------------------------
 
+// remove a node contains the given ID
 void Remove(List& l, string ID)
 {
 	PrioQue* pre = NULL, * pnext = l.head;
@@ -225,4 +222,19 @@ void Remove(List& l, string ID)
 	}
 
 	throw "Can't found NAME !\n";
+}
+
+//---------------------------------------------------------
+
+// remove the node has largest priority
+PrioQue* Extract(List& l)
+{
+	if (isEmpty(l)) {
+		return NULL;
+	}
+	else {
+		PrioQue* p = l.head;
+		l.head = l.head->next;
+		return p;
+	}
 }
