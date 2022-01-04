@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-
+// Nguon: Bai giang thay Phuong va https://freetuts.net/them-node-moi-vao-cay-do-den-3139.html
 
 RBNode* createNode(int key, int color, RBNode* nil) {
 	RBNode* p = new RBNode;
@@ -36,7 +36,7 @@ void Insert(RBNode*& root, int key) {
 	Insertion_FixUp(root, x);
 }
 
-void rotateLeft(RBNode*& root, RBNode* pt)
+void rotateLeft(RBNode*& root, RBNode* pt)	// Xoay trai
 {
 	RBNode* pt_right = pt->right;
 	pt->right = pt_right->left;
@@ -52,7 +52,7 @@ void rotateLeft(RBNode*& root, RBNode* pt)
 	pt_right->left = pt;
 	pt->parent = pt_right;
 }
-void rotateRight(RBNode*& root, RBNode* pt)
+void rotateRight(RBNode*& root, RBNode* pt)	// Xoay phai
 {
 	RBNode* pt_left = pt->left;
 	pt->left = pt_left->right;
@@ -105,7 +105,7 @@ void rightAdjust(RBNode*& root, RBNode*& x) {
 	}
 }
 
-void Insertion_FixUp(RBNode*& root, RBNode* x) {
+void Insertion_FixUp(RBNode*& root, RBNode* x) {		// Sua cau truc cay sau khi chen
 	while (x->parent->color == 1) {
 		if (x->parent == x->parent->parent->left)
 			leftAdjust(root, x);
@@ -123,7 +123,7 @@ RBNode* createTree(int a[], int n) {
 	return root;
 }
 
-RBNode* lookUp(RBNode* root, int key) {
+RBNode* lookUp(RBNode* root, int key) {				
 	RBNode* p = root;
 	while (p->key != key && p != nil) {
 		if (key > p->key)	p = p->right;
@@ -171,7 +171,7 @@ RBNode* TreeSuccessor(RBNode* x) {
 	return temp;
 }
 
-void Del_FixUp(RBNode*& root, RBNode*& x) {
+void Del_FixUp(RBNode*& root, RBNode*& x) {			// Sua cau truc cay sau khi xoa
 	while ((x->color == 0) && (x != root))
 		if (x == x->parent->left)
 			del_leftAdjust(root, x);
