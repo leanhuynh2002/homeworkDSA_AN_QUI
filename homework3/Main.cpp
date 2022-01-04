@@ -10,27 +10,27 @@ int main() {
     }
 
     cout << "List:\n ";
-    printList(list);
+    printList(list);                            // In danh sach demo
     cout << "\naddHead(5):\n ";
-    addHead(list, createNode(5));
-    printList(list);
+    addHead(list, createNode(5));               // Test ham addHead
+    printList(list);                            // In danh sach
     cout << "\naddTail(6):\n ";
-    addTail(list, createNode(6));
+    addTail(list, createNode(6));               // Test ham addTail
     printList(list);
     cout << "\naddAfter(7,3):\n ";
-    addAfter(list, createNode(7), 3);
+    addAfter(list, createNode(7), 3);           // Test ham addAfter
     printList(list);
     cout << "\nremoveHead():\n ";
-    removeHead(list);
+    removeHead(list);                           // Test ham removeHead
     printList(list);
     cout << "\nremoveTail():\n ";
-    removeTail(list);
+    removeTail(list);                           // Test ham removeTail
     printList(list);
     cout << "\nremoveAfter(3):\n ";
-    removeAfter(list, 3);
+    removeAfter(list, 3);                       // Test ham removeAfter
     printList(list);
 
-    while (list->pTail) {
+    while (list->pTail) {                       // Xoa danh sach
         removeTail(list);
     }
 
