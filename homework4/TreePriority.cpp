@@ -96,10 +96,12 @@ void heapify(TreePrio*& node)
 // compare two different node
 bool compare(TreePrio* p1, TreePrio* p2)
 {
+	// compare the Priority
 	if (p1->Priority > p2->Priority)
 		return true;
 	else if (p1->Priority < p2->Priority)
 		return false;
+	// compare the Order
 	else {
 		if (p1->Order > p2->Order)
 			return true;
@@ -204,10 +206,17 @@ void printConsole(TreePrio*& root)
 
 //---------------------------------------------------------
 
-// remove the node has add last into min-heap
+// remove the node has add lastest into min-heap
 TreePrio* removeTheLastNode(TreePrio* node, TreePrio* preNode)
 {
 	if (node != NULL) {
+		// if left is full, check right
+		// if left and right are NULL, node is the last
+		// because node->length == 1 is not full, so it can happen
+		//           root
+		//         /      \
+		//        p1        p2
+		//---------------------------------------------------------------
 		if (check(node)) {
 			preNode = node;
 			--preNode->length;
@@ -264,16 +273,16 @@ TreePrio* removeTheLastNode(TreePrio* node, TreePrio* preNode)
 }
 
 // remove the node has largest priority
-TreePrio* Extract(TreePrio*& root)
+void Extract(TreePrio*& root)
 {
+	// find the latest node
 	TreePrio* lastNode = removeTheLastNode(root);
-	if (lastNode == NULL) {
-		return NULL;
+	if (lastNode != NULL) {
+		// swap the data between root and lastest node
+		swap(root, lastNode);
+		// sorted the min-heap again
+		heapify(root);
 	}
-
-	swap(root, lastNode);
-	heapify(root);
-	return lastNode;
 }
 
 //-------------------------------------------------------------

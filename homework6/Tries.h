@@ -21,11 +21,9 @@ void readFile(fstream& file, string& word, int& ID);
 
 void createTrie(TrieNode*& Dic, string DicFile);
 
-void Insert(TrieNode*& Dic, const string& word, const int& ID);
+void Insert(TrieNode*& Dic, const string word, const int ID);
 
 //-------------------------------------------------------------
-
-void deleteWordTrie(TrieNode*& Dic, string word);
 
 void deleteTrieNode(TrieNode* Dic);
 
@@ -35,6 +33,12 @@ void findWordSamePrefix(TrieNode* Dic, string prefix, vector<string>& data);
 
 vector<string> lookUpPrefix(TrieNode* Dic, string prefix);
 
-int lookUp(TrieNode* Dic, string word, int index);
+//-----------------------------------------------------------------
+
+//TrieNode* findID(TrieNode* Dic, string word, int depth = 0);
+
+int lookUp(TrieNode* Dic, string word);
+
+void Remove(TrieNode* Dic, string word, int depth = 0);
 
 #endif

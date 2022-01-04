@@ -69,7 +69,7 @@ void printConsole(TreePrio*& root);
 TreePrio* removeTheLastNode(TreePrio* node, TreePrio* preNode = NULL);
 
 // remove the node has largest priority
-TreePrio* Extract(TreePrio*& root);
+void Extract(TreePrio*& root);
 
 //-------------------------------------------------------------
 

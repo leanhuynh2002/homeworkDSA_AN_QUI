@@ -9,10 +9,12 @@ using namespace std;
 // compare two node different
 bool Condition(PrioQue* p1, PrioQue* p2)
 {
+	// compare the priority
 	if (p1->Priority > p2->Priority)
 		return true;
 	else if (p1->Priority < p2->Priority)
 		return false;
+	// compare the Order
 	else {
 		if (p1->Order > p2->Order)
 			return true;
@@ -21,18 +23,6 @@ bool Condition(PrioQue* p1, PrioQue* p2)
 	}
 
 	throw "Error from input data !\n";
-}
-
-// sort the list
-void Sort(List& l, PrioQue* node)
-{
-	if (!isEmpty(l)) {
-		for (PrioQue* p = l.head; p != NULL; p = p->next) {
-			if (!Condition(p, node)) {
-				
-			}
-		}
-	}
 }
 
 //-----------------------------------------------------
@@ -101,7 +91,7 @@ void deleteNode(PrioQue* node)
 }
 
 // delete all node
-void deleteAllPiority(List& l)
+void deleteAllNode(List& l)
 {
 	// contain the deleted node
 	PrioQue* node;
@@ -152,22 +142,24 @@ void readFile(string nameFile, List& l)
 // print a node
 void printNode(PrioQue* node)
 {
-	cout << node->ID << " " << node->Order << " " << node->Priority;
+	if (node != NULL) {
+		cout << node->ID << " " << node->Order << " " << node->Priority;
+	}
 }
 
 // print all nodes
-void printPriority(List& l)
+void printConsole(List& l)
 {
 	for (PrioQue* p = l.head; p != NULL; p = p->next) {
 		printNode(p);
-		cout << "\n\n";
+		cout << "\n";
 	}
 }
 
 //-----------------------------------------------------
 
 // find the node and remove it
-PrioQue* findAndRemove(List& l, const string& ID)
+PrioQue* findAndRemove(List& l, string ID)
 {
 	PrioQue* pre = NULL, * pnext = l.head;
 
@@ -189,15 +181,15 @@ PrioQue* findAndRemove(List& l, const string& ID)
 }
 
 // change the priority of one node contains given priority
-void changPriority(List& l, string ID, int inputPriority)
+void changePriority(List& l, string ID, int inputPriority)
 {
+	// find the node contain the given ID
 	PrioQue* foundNode = findAndRemove(l, ID);
+	// chang its priority and insert it into the LinkedList
 	if (foundNode != NULL) {
 		foundNode->Priority = inputPriority;
 		Insert(l, foundNode);
 	}
-
-	throw "Can't found NAME !\n";
 }
 
 //--------------------------------------------------------
@@ -207,6 +199,7 @@ void Remove(List& l, string ID)
 {
 	PrioQue* pre = NULL, * pnext = l.head;
 
+	// pnext contain the needed node
 	for (; pnext != NULL; pnext = pnext->next) {
 		if (pnext->ID == ID) {
 			if (pnext == l.head) {
@@ -215,26 +208,21 @@ void Remove(List& l, string ID)
 			else {
 				pre->next = pnext->next;
 			}
+			// delete the node contain the given ID
 			deleteNode(pnext);
 			return;
 		}
 		pre = pnext;
 	}
-
-	throw "Can't found NAME !\n";
 }
 
 //---------------------------------------------------------
 
 // remove the node has largest priority
-PrioQue* Extract(List& l)
+void Extract(List& l)
 {
-	if (isEmpty(l)) {
-		return NULL;
-	}
-	else {
+	if (!isEmpty(l)) {
 		PrioQue* p = l.head;
 		l.head = l.head->next;
-		return p;
 	}
 }

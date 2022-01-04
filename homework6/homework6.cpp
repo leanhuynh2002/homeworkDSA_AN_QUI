@@ -5,14 +5,19 @@ using namespace std;
 
 int main()
 {
-    TrieNode* Dic = NULL;
 
     try {
-        createTrie(Dic, "D:\\HW6-dic.txt");
-        
-        string word = "das";
+        TrieNode* Dic = NULL;
 
-        while (word != "") {
+        createTrie(Dic, "HW6-dic.txt");
+        
+        string word = "friend";
+        cout << "Gia tri cua tu friend : " << lookUp(Dic, word) << endl;
+        Remove(Dic, word);
+        cout << "Gia tri cua tu friend : " << lookUp(Dic, word) << endl;
+        Insert(Dic, "vtpt", 2000);
+
+        do {
             cout << "Nhap prefix can tra: ";
             getline(cin, word);
             vector<string> data = lookUpPrefix(Dic, word);
@@ -20,8 +25,8 @@ int main()
                 cout << u << " ";
             }
             cout << "\n---------------------------------------------------\n\n";
-        }
-       
+        } while (word != "stop");
+
         deleteTrieNode(Dic);
     }
     catch (const char* message) {

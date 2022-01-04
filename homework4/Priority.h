@@ -22,9 +22,6 @@ struct List
 // compare two node different
 bool Condition(PrioQue* p1, PrioQue* p2);
 
-// sort the list
-void Sort(List& l, PrioQue* node);
-
 //-----------------------------------------------------
 
 // check the list is empty
@@ -41,7 +38,7 @@ void Insert(List& l, PrioQue* node);
 void deleteNode(PrioQue* node);
 
 // delete all node
-void deleteAllPiority(List& l);
+void deleteAllNode(List& l);
 
 //---------------------------------------------------------------
 
@@ -57,15 +54,15 @@ void readFile(string nameFile, List& l);
 void printNode(PrioQue* node);
 
 // print all nodes
-void printPriority(List& l);
+void printConsole(List& l);
 
 //-----------------------------------------------------
 
 // find the node and remove it
-PrioQue* findAndRemove(List& l, const string& ID);
+PrioQue* findAndRemove(List& l, string ID);
 
 // change the priority of one node contains given priority
-void changPriority(List& l, string ID, int inputPriority);
+void changePriority(List& l, string ID, int inputPriority);
 
 //--------------------------------------------------------
 
@@ -75,6 +72,6 @@ void Remove(List& l, string ID);
 //---------------------------------------------------------
 
 // remove the node has largest priority
-PrioQue* Extract(List& l);
+void Extract(List& l);
 
 #endif

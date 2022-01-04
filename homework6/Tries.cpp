@@ -3,6 +3,7 @@
 #include <fstream>
 using namespace std;
 
+// convert character into the index of array
 int ctoi(char symbol)
 {
     int ptemp = ((int)symbol - 97);
@@ -12,6 +13,7 @@ int ctoi(char symbol)
     }
 }
 
+// convert index of array into character
 char itoc(int i)
 {
     return (i + 97);
@@ -19,14 +21,15 @@ char itoc(int i)
 
 //---------------------------------
 
+// load data
 void readFile(fstream& file, string& word, int& ID)
 {
     file >> ID;
     getline(file, word);
     word = word.substr(2, word.length());
-    cout << word << endl;
 }
 
+// make a Trie from input data
 void createTrie(TrieNode*& Dic, string DicFile)
 {
     fstream fileIn(DicFile, ios::in);
@@ -45,6 +48,7 @@ void createTrie(TrieNode*& Dic, string DicFile)
     fileIn.close();
 }
 
+// find the node contain the given word
 TrieNode* findTheEndOfWord(TrieNode* Dic, string word)
 {
     // check the root
@@ -71,7 +75,8 @@ TrieNode* findTheEndOfWord(TrieNode* Dic, string word)
 
 //---------------------------------------------------------
 
-void Insert(TrieNode*& Dic, const string& word, const int& ID)
+// insert a word into trie
+void Insert(TrieNode*& Dic, const string word, const int ID)
 {
     // check the Root
     if (Dic == NULL) {
@@ -99,12 +104,8 @@ void Insert(TrieNode*& Dic, const string& word, const int& ID)
     }
 }
 
-void deleteWordTrie(TrieNode*& Dic, string word)
-{
-    TrieNode* currentNode = findTheEndOfWord(Dic, word);
-    currentNode->ID = -1;
-}
-
+//-------------------------------------------------------------------
+// delete all node
 void deleteTrieNode(TrieNode* Dic)
 {
     if (Dic == NULL)
@@ -119,7 +120,6 @@ void deleteTrieNode(TrieNode* Dic)
 }
 
 //---------------------------------------------------------
-
 void findWordSamePrefix(TrieNode* Dic, string prefix, vector<string>& data)
 {
     if (Dic == NULL)
@@ -130,30 +130,45 @@ void findWordSamePrefix(TrieNode* Dic, string prefix, vector<string>& data)
     }
 
     for (int i = 0; i < 26; i++) {
+        // add a character into the current string
         prefix = prefix + itoc(i);
         findWordSamePrefix(Dic->next[i], prefix, data);
+        // delete the character added in the current string
         prefix = prefix.substr(0, prefix.length() - 1);
     }
 }
 
 vector<string> lookUpPrefix(TrieNode* Dic, string prefix)
 {
+    // array save the found words
     vector<string> data;
+    // find the node that contain the prefix word
     TrieNode* foundTrieNode = findTheEndOfWord(Dic, prefix);
+    // find all words
     findWordSamePrefix(foundTrieNode, prefix, data);
+    // return the array has found
     return data;
 }
 
-int lookUp(TrieNode* Dic, string word, int index)
+//----------------------------------------------------------------------
+// find the value of word
+int lookUp(TrieNode* Dic, string word)
 {
-    if (index == word.length()) {
-        return Dic->ID;
-    }
-
-    if (Dic == NULL) {
+    TrieNode* foundNode = findTheEndOfWord(Dic, word);
+    if (foundNode == NULL) {
         return -1;
     }
     else {
-        return lookUp(Dic->next[ctoi(word[index])], word, index + 1);
+        return foundNode->ID;
+    }
+}
+
+//----------------------------------------------------------
+// change the value of word into -1
+void Remove(TrieNode* Dic, string word, int depth)
+{
+    TrieNode* foundNode = findTheEndOfWord(Dic, word);
+    if (foundNode != NULL) {
+        foundNode->ID = -1;
     }
 }
