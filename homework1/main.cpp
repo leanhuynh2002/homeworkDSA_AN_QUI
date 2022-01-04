@@ -45,9 +45,13 @@ pair<int, int> FindValue(int* Arr, int size, int x)
 
 int main(int argc, char** argv)
 {
+    // convert data into array
     int* Arr = ConvertFile(argc, argv);
+    // get the pos and times of loop
     pair<int, int> result = FindValue(Arr, argc - 2, atoi(argv[1]));
+    // print to console
     cout << result.first << " - " << result.second << endl;
+    // delete the array
     if (Arr != NULL)
         delete[] Arr;
     return 1;
