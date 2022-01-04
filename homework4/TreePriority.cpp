@@ -186,7 +186,7 @@ void deleteAllNode(TreePrio*& root)
 void printNode(TreePrio* node)
 {
 	if (node != NULL) {
-		cout << node->ID << " " << node->Order << " " << node->Priority << " " << node->length << endl;
+		cout << node->ID << " " << node->Order << " " << node->Priority << endl;
 	}
 }
 
@@ -336,8 +336,7 @@ void changePriority(TreePrio* root, string ID, unsigned int inputPriority)
 	if (foundNode != NULL) {
 		// make a new node from the current foundNode to insert again
 		foundNode = new TreePrio{ foundNode->ID, foundNode->Order, inputPriority };
-		// sorted the min-heap again
-		// remove the oldf foundNode (it is in min-heap in the moment)
+		// remove the old foundNode (it is in min-heap in the moment)
 		Remove(root, ID);
 		// add it again into min-heap
 		Insert(root, foundNode);
