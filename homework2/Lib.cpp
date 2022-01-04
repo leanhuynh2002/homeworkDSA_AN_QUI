@@ -81,13 +81,17 @@ Node* findNode(List& l, char* name)
 // delete a node contail the same input Name
 void deleteSimilarNode(List& l, const char* name)
 {
+	if (l.head == NULL) {
+		return;
+	}
+
 	Node* pre = NULL;
 
 	// check for all the nodes
 	// get a node contains the name
 	// delete it
-
 	// check the head of List
+
 	if (strcmp(l.head->name, name) == 0) {
 		pre = l.head;
 		l.head = l.head->next;
@@ -149,7 +153,7 @@ void readFile(List& l)
 	file.open("data.txt", ios_base::in);
 
 	if (file.fail()) {
-		throw "Can't open file !\n";
+		return;
 	}
 
 	int size, n;

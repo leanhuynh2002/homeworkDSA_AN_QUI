@@ -116,21 +116,21 @@ void Make(List& l, int argc, char** argv)
 	vector<vector<int>> arr;
 	int n = a.size();
 
-	if (strcmp(argv[3], "MIN") == 0) {
+    if (strcmp(argv[3], "MIN") == 0) {
 		arr = buildMinSparseTable(a, n);
 	}
 	else if (strcmp(argv[3], "MAX") == 0) {
-		arr = buildMaxSparseTable(a, a.size());
+		arr = buildMaxSparseTable(a, n);
 	}
 	else if (strcmp(argv[3], "GCD") == 0) {
-		arr = buildGCDSparseTable(a, a.size());
+		arr = buildGCDSparseTable(a, n);
 	}
-
+    
     // make new node, print and add to List
     Node* ptemp = createNode(argv[2], argv[3], arr);
     printTable(ptemp);
     addTail(l, ptemp);
-
+    
     // save table
 	writeFile(l);
 }
@@ -168,12 +168,7 @@ int main(int argc, char** argv)
     List l;
 
     // load data
-    try {
-        readFile(l);
-    }
-    catch (const char* str) {
-        cout << str << endl;
-    }
+    readFile(l);
 
     // do works
     // make sparse table
