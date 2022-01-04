@@ -4,7 +4,7 @@ using namespace std;
 
 static int times;
 
-int getDigits(Nref a, int k, int r) {
+int getDigits(Nref a, int k, int r) {					// Lay k chu so thu r tu phai sang trai cua Node a
 	return (a->key % (int)pow(10, k * r)) / pow(10, k * (r - 1));
 }
 
@@ -25,7 +25,7 @@ void readInput(FILE* fileIn, int& k, int& n, Nref &head, Nref &tail) {
 	}
 }
 
-void radixSort(int k, Nref &head, Nref &tail, Bref &buckDump)
+void radixSort(int k, Nref &head, Nref &tail, Bref &buckDump)		// Nguon: Bai giang thay Phuong
 {
 	for (int cnt = 1; cnt <= times; cnt++) {
 		buckDump = new Bucket;
@@ -37,7 +37,7 @@ void radixSort(int k, Nref &head, Nref &tail, Bref &buckDump)
 		buckDump->next->next = NULL;
 
 		Nref h = head->next;
-		while (h) {
+		while (h) {						// Xep day so vao cac Bucket
 			int h_id = getDigits(h, k, cnt);
 			Bref p1 = buckDump;
 			Bref p2 = buckDump->next;
@@ -72,7 +72,7 @@ void radixSort(int k, Nref &head, Nref &tail, Bref &buckDump)
 		Bref b = buckDump->next->next;
 		delete buckDump->next;
 		delete buckDump;
-		while (b) {
+		while (b) {						// Tao day so da sap xep tu cac Bucket
 			tail->next = b->head;
 			tail = b->tail;
 			Bref temp = b;
