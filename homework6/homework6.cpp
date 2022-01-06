@@ -8,15 +8,17 @@ int main()
 
     try {
         TrieNode* Dic = NULL;
-
+        // load data
         createTrie(Dic, "HW6-dic.txt");
         
+        // demo function lookup, remove, insert
         string word = "friend";
         cout << "Gia tri cua tu friend : " << lookUp(Dic, word) << endl;
         Remove(Dic, word);
         cout << "Gia tri cua tu friend : " << lookUp(Dic, word) << endl;
         Insert(Dic, "vtpt", 2000);
 
+        // demo function lookupprefix
         do {
             cout << "Nhap prefix can tra: ";
             getline(cin, word);
@@ -27,6 +29,7 @@ int main()
             cout << "\n---------------------------------------------------\n\n";
         } while (word != "stop");
 
+        // delete tries
         deleteTrieNode(Dic);
     }
     catch (const char* message) {

@@ -210,22 +210,23 @@ void printConsole(TreePrio*& root)
 TreePrio* removeTheLastNode(TreePrio* node, TreePrio* preNode)
 {
 	if (node != NULL) {
-		// if left is full, check right
-		// if left and right are NULL, node is the last
-		// because node->length == 1 is not full, so it can happen
-		//           root
-		//         /      \
-		//        p1        p2
-		//---------------------------------------------------------------
+		// if the node is full
 		if (check(node)) {
 			preNode = node;
+			// decrease its length
 			--preNode->length;
+			// recursion
 			return removeTheLastNode(node->right, preNode);
 		}
 		else if (node->left != NULL) {
+			// if the left of node us full
 			if (check(node->left)) {
+				// check the right of node
 				if (node->right != NULL) {
+					// if the right of node not full
 					if (!check(node->right)) {
+						// exactly full (because 1 also true but fact it's false)
+						// do the same like the node
 						if (node->right->length > 1) {
 							preNode = node;
 							--preNode->length;
@@ -237,25 +238,30 @@ TreePrio* removeTheLastNode(TreePrio* node, TreePrio* preNode)
 							return removeTheLastNode(node->left, preNode);
 						}
 					}
+					// the left of node is ok
 					else {
 						preNode = node;
 						--preNode->length;
 						return removeTheLastNode(node->left, preNode);
 					}
 				}
+				// the left of node is ok
 				else {
 					preNode = node;
 					--preNode->length;
 					return removeTheLastNode(node->left, preNode);
 				}
 			}
+			// the left of node is ok
 			else {
 				preNode = node;
 				--preNode->length;
 				return removeTheLastNode(node->left, preNode);
 			}
 		}
+		// the node has no child so it is the last node
 		else {
+			// check node is the left or right of preNode, then remove it from preNode
 			if (preNode != NULL) {
 				if (preNode->left == node) {
 					preNode->left = NULL;

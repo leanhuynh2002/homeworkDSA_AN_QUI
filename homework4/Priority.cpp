@@ -164,10 +164,13 @@ PrioQue* findAndRemove(List& l, string ID)
 	PrioQue* pre = NULL, * pnext = l.head;
 
 	for (; pnext != NULL; pnext = pnext->next) {
+		// if find the node that contains the given ID
 		if (pnext->ID == ID) {
+			// if it is head, change head node
 			if (pnext == l.head) {
 				l.head = l.head->next;
 			}
+			// change the preNode
 			else {
 				pre->next = pnext->next;
 			}

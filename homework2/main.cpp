@@ -1,3 +1,4 @@
+// source code: https://www.geeksforgeeks.org/sparse-table
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <string.h>

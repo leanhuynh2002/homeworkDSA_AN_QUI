@@ -1,3 +1,4 @@
+// source code: https://www.geeksforgeeks.org/lzw-lempel-ziv-welch-compression-technique/
 #include "LZW.h"
 using namespace std;
 
