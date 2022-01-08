@@ -6,9 +6,17 @@ using namespace std;
 
 struct User
 {
+	static int InstanceCount;
 	string ID;
 	unsigned int Order;
 	unsigned int Priority;
+
+	User(string _ID, unsigned int _Priority)
+	{
+		ID = _ID;
+		Order = InstanceCount++;
+		Priority = _Priority;
+	}
 };
 
 void swap(User& a, User& b);

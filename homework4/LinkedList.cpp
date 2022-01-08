@@ -86,19 +86,18 @@ void deleteAllNode(List& l)
 // read a line in file txt
 void getData(fstream& file, List& l)
 {
-	User ptemp;
 	string ID;
+	unsigned int Priority;
 	Node* node = NULL;
 
 	while (!file.eof()) {
-		file >> ptemp.Order >> ptemp.Priority;
+		file >> Priority;
 		getline(file, ID);
 		if (ID == "") {
 			return;
 		}
 		ID.erase(0, 1);
-		ptemp.ID = ID;
-		node = new Node{ ptemp };
+		node = new Node{ User(ID, Priority) };
 		Insert(l, node);
 		node = NULL;
 	}

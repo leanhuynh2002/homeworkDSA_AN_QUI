@@ -1,8 +1,8 @@
-1 1 Huynh Le An
-2 2 Nguyen Thi Hong Nhung
-3 3 Panda
-4 4 Tran Nguyen Quy
-5 5 Bui Huy Thong
-6 4 Truong Tan Sang
-7 1 Tu Van Qui
-8 7 Cuong Han
+1 Huynh Le An
+2 Nguyen Thi Hong Nhung
+3 Panda
+4 Tran Nguyen Quy
+5 Bui Huy Thong
+4 Truong Tan Sang
+1 Tu Van Qui
+7 Cuong Han

@@ -5,6 +5,8 @@
 #include "Min-heap.h"
 using namespace std;
 
+int User::InstanceCount = 0;
+
 int main()
 {
 	try {
@@ -21,14 +23,8 @@ int main()
 		cout << "\n";
 
 		// demo function Insert
-		cout << "Them vao: ID: Vo Thanh, priority = 4, order = 5 \n";
-
-		User ptemp;
-		ptemp.ID = "Vo Thanh";
-		ptemp.Order = 5;
-		ptemp.Priority = 4;
-
-		Node* node = new Node{ptemp};
+		cout << "Them vao: ID: Vo Thanh, priority = 4 \n";
+		Node* node = new Node{ User("Vo Thanh", 4) };
 		Insert(l, node);
 		cout << "Danh sach sau khi them \n";
 		printConsole(l);
@@ -64,6 +60,8 @@ int main()
 	cout << "\n++++++++++++++++++++++++++++           MIN-HEAP         +++++++++++++++++++++++++++++++++\n\n";
 
 	try {
+		cout << "*Print saved data from MIN-HEAP to Array, not sort Array*\n";
+		User::InstanceCount = 0;
 		// load data
 		min_heap root;
 		readFile("HW4-Priority.txt", root);
@@ -76,12 +74,8 @@ int main()
 		cout << "\n";
 
 		// demo function Insert
-		cout << "Them vao: ID: Vo Thanh, priority = 4, order = 5 \n";
-		User ptemp;
-		ptemp.ID = "Vo Thanh";
-		ptemp.Order = 4;
-		ptemp.Priority = 5;
-
+		cout << "Them vao: ID: Vo Thanh, priority = 4\n";
+		User ptemp("Vo Thanh", 4);
 		Insert(root, ptemp);
 		cout << "Danh sach sau khi them \n";
 		printConsole(root);
