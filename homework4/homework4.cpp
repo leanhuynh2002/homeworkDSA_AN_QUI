@@ -42,15 +42,15 @@ int main()
 		cout << "\n";
 
 		// demo function Remove
-		cout << "Xoa phan tu voi ID = An\n";
-		Remove(l, "An");
+		cout << "Xoa phan tu voi ID = Bui Huy Thong\n";
+		Remove(l, "Bui Huy Thong");
 		cout << "Danh sach khi xoa\n";
 		printConsole(l);
 		cout << "\n";
 
 		// demo function changePrioriy
-		cout << "Thay doi priority cua phan tu voi ID = Tu Van Qui, inputpriority = 7\n";
-		changePriority(l, "Tu Van Qui", 7);
+		cout << "Thay doi priority cua phan tu voi ID = Tu Van Qui, inputpriority = 4\n";
+		changePriority(l, "Tu Van Qui", 4);
 		cout << "Danh sach sau khi thay doi\n";
 		printConsole(l);
 
@@ -98,8 +98,8 @@ int main()
 		cout << "\n\n";
 
 		// demo function Remove
-		cout << "Xoa phan tu voi ID = Tu Van Qui\n";
-		Remove(root, "Tu Van Qui");
+		cout << "Xoa phan tu voi ID = Bui Huy Thong\n";
+		Remove(root, "Bui Huy Thong");
 		cout << "Danh sach khi xoa\n";
 		printConsole(root);
 		cout << "\n";
