@@ -94,9 +94,6 @@ int main()
 		printConsole(root);
 		cout << "\n";
 
-		printConsole(root);
-		cout << "\n\n";
-
 		// demo function Remove
 		cout << "Xoa phan tu voi ID = Bui Huy Thong\n";
 		Remove(root, "Bui Huy Thong");

@@ -29,6 +29,6 @@ int compare(const User& p1, const User& p2)
 string print(const User& _p)
 {
 	stringstream writer;
-	writer << "ID: " << _p.ID << "          Priority: " << _p.Priority << "         Order: " << _p.Order;;
+	writer << "ID: " << _p.ID << "          Priority: " << _p.Priority << "         Order: " << _p.Order;
 	return writer.str();
 }
