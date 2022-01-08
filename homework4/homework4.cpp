@@ -1,48 +1,56 @@
 #include <iostream>
 #include <string>
-#include "Priority.h"
-#include "TreePriority.h"
+#include "User.h"
+#include "LinkedList.h"
+#include "Min-heap.h"
 using namespace std;
 
 int main()
 {
 	try {
+		cout << "+++++++++++++++++++++++++       LINKEDLIST           ++++++++++++++++++++++++++\n\n";
 		// load data
 		List l;
 		readFile("HW4-Priority.txt", l);
 		cout << "Kiem tra co rong hay khong: ";
 
-		// demo function isempty
+		// demo function isEmpty
 		if (!isEmpty(l)) {
 			cout << "Non empty !\n";
 		}
 		cout << "\n";
 
 		// demo function Insert
-		cout << "Them vao: ID: Vo Thanh, order = 5, priority = 4 \n";
-		PrioQue* node = new PrioQue{ "Vo Thanh", 5, 4 };
+		cout << "Them vao: ID: Vo Thanh, priority = 4, order = 5 \n";
+
+		User ptemp;
+		ptemp.ID = "Vo Thanh";
+		ptemp.Order = 5;
+		ptemp.Priority = 4;
+
+		Node* node = new Node{ptemp};
 		Insert(l, node);
 		cout << "Danh sach sau khi them \n";
 		printConsole(l);
 		cout << "\n";
 
-		// demo function extract
+		// demo function Extract
 		cout << "Lay phan tu xep cao nhat\n";
 		Extract(l);
 		cout << "Danh sach khi xoa\n";
 		printConsole(l);
 		cout << "\n";
 
-		// demo function remove
+		// demo function Remove
 		cout << "Xoa phan tu voi ID = An\n";
 		Remove(l, "An");
 		cout << "Danh sach khi xoa\n";
 		printConsole(l);
 		cout << "\n";
 
-		// demo function changePriority
-		cout << "Thay doi priority cua phan tu voi ID = Tu Van Qui, inputpriority = 2\n";
-		changePriority(l, "Tu Van Qui", 2);
+		// demo function changePrioriy
+		cout << "Thay doi priority cua phan tu voi ID = Tu Van Qui, inputpriority = 7\n";
+		changePriority(l, "Tu Van Qui", 7);
 		cout << "Danh sach sau khi thay doi\n";
 		printConsole(l);
 
@@ -53,11 +61,12 @@ int main()
 		cout << message << endl;
 	}
 
-	cout << "\n---------------------------------------------------------------------------------------\n";
+	cout << "\n++++++++++++++++++++++++++++           MIN-HEAP         +++++++++++++++++++++++++++++++++\n\n";
 
 	try {
 		// load data
-		TreePrio* root = readFile("HW4-Priority.txt");
+		min_heap root;
+		readFile("HW4-Priority.txt", root);
 
 		// demo function isEmpty
 		cout << "Kiem tra co rong hay khong: ";
@@ -67,9 +76,13 @@ int main()
 		cout << "\n";
 
 		// demo function Insert
-		cout << "Them vao: ID: Vo Thanh, order = 5, priority = 4 \n";
-		TreePrio* node = new TreePrio{ "Vo Thanh", 5, 4 };
-		Insert(root, node);
+		cout << "Them vao: ID: Vo Thanh, priority = 4, order = 5 \n";
+		User ptemp;
+		ptemp.ID = "Vo Thanh";
+		ptemp.Order = 4;
+		ptemp.Priority = 5;
+
+		Insert(root, ptemp);
 		cout << "Danh sach sau khi them \n";
 		printConsole(root);
 		cout << "\n";
@@ -81,20 +94,23 @@ int main()
 		printConsole(root);
 		cout << "\n";
 
+		printConsole(root);
+		cout << "\n\n";
+
 		// demo function Remove
-		cout << "Xoa phan tu voi ID = An\n";
-		Remove(root, "An");
+		cout << "Xoa phan tu voi ID = Tu Van Qui\n";
+		Remove(root, "Tu Van Qui");
 		cout << "Danh sach khi xoa\n";
 		printConsole(root);
 		cout << "\n";
 
 		// demo function changePriority
-		cout << "Thay doi priority cua phan tu voi ID = Tu Van Qui, inputpriority = 2\n";
-		changePriority(root, "Tu Van Qui", 2);
+		cout << "Thay doi priority cua phan tu voi ID = Tu Van Qui, inputpriority = 4\n";
+		changePriority(root, "Tu Van Qui", 4);
 		cout << "Danh sach sau khi thay doi\n";
 		printConsole(root);
 
-		// delete all node
+		// delete the min-heap
 		deleteAllNode(root);
 
 	}

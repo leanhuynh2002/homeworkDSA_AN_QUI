@@ -1,31 +1,8 @@
-#include "Priority.h"
+#include "LinkedList.h"
 #include <algorithm>
 #include <fstream>
 #include <string>
 using namespace std;
-
-//----------------------------------------------------
-
-// compare two node different
-bool Condition(PrioQue* p1, PrioQue* p2)
-{
-	// compare the priority
-	if (p1->Priority > p2->Priority)
-		return true;
-	else if (p1->Priority < p2->Priority)
-		return false;
-	// compare the Order
-	else {
-		if (p1->Order > p2->Order)
-			return true;
-		else if (p1->Order < p2->Order)
-			return false;
-	}
-
-	throw "Error from input data !\n";
-}
-
-//-----------------------------------------------------
 
 // check the list is empty
 bool isEmpty(List& root)
@@ -38,7 +15,7 @@ bool isEmpty(List& root)
 //-----------------------------------------------------
 
 // insert one node into list
-void Insert(List& l, PrioQue* node)
+void Insert(List& l, Node* node)
 {
 	// insert for root
 	if (isEmpty(l)) {
@@ -47,12 +24,12 @@ void Insert(List& l, PrioQue* node)
 	// the List is sorted before
 	// we just add 1 element
 	else {
-		PrioQue* pre = NULL;
-		PrioQue* pnext = l.head;
+		Node* pre = NULL;
+		Node* pnext = l.head;
 
 		for (; pnext != NULL; pnext = pnext->next) {
 			// find the node lower than it
-			if (!Condition(pnext, node)) {
+			if (compare(pnext->_user, node->_user) == -1) {
 				// insert for head
 				if (pnext == l.head) {
 					node->next = l.head;
@@ -82,7 +59,7 @@ void Insert(List& l, PrioQue* node)
 //----------------------------------------------------------
 
 // delete one node
-void deleteNode(PrioQue* node)
+void deleteNode(Node* node)
 {
 	if (node != NULL) {
 		node->next = NULL;
@@ -94,7 +71,7 @@ void deleteNode(PrioQue* node)
 void deleteAllNode(List& l)
 {
 	// contain the deleted node
-	PrioQue* node;
+	Node* node;
 
 	// delete iff l.head == NULL
 	while (!isEmpty(l)) {
@@ -109,18 +86,19 @@ void deleteAllNode(List& l)
 // read a line in file txt
 void getData(fstream& file, List& l)
 {
-	unsigned int Order, Priority;
+	User ptemp;
 	string ID;
-	PrioQue* node = NULL;
+	Node* node = NULL;
 
 	while (!file.eof()) {
-		file >> Order >> Priority;
+		file >> ptemp.Order >> ptemp.Priority;
 		getline(file, ID);
 		if (ID == "") {
 			return;
 		}
 		ID.erase(0, 1);
-		node = new PrioQue{ ID, Order, Priority };
+		ptemp.ID = ID;
+		node = new Node{ ptemp };
 		Insert(l, node);
 		node = NULL;
 	}
@@ -139,38 +117,26 @@ void readFile(string nameFile, List& l)
 
 //----------------------------------------------------------------
 
-// print a node
-void printNode(PrioQue* node)
-{
-	if (node != NULL) {
-		cout << node->ID << " " << node->Order << " " << node->Priority;
-	}
-}
-
 // print all nodes
 void printConsole(List& l)
 {
-	for (PrioQue* p = l.head; p != NULL; p = p->next) {
-		printNode(p);
-		cout << "\n";
+	for (Node* p = l.head; p != NULL; p = p->next) {
+		cout << print(p->_user) << endl;
 	}
 }
 
 //-----------------------------------------------------
 
 // find the node and remove it
-PrioQue* findAndRemove(List& l, string ID)
+Node* findAndRemove(List& l, string ID)
 {
-	PrioQue* pre = NULL, * pnext = l.head;
+	Node* pre = NULL, * pnext = l.head;
 
 	for (; pnext != NULL; pnext = pnext->next) {
-		// if find the node that contains the given ID
-		if (pnext->ID == ID) {
-			// if it is head, change head node
+		if (pnext->_user.ID == ID) {
 			if (pnext == l.head) {
 				l.head = l.head->next;
 			}
-			// change the preNode
 			else {
 				pre->next = pnext->next;
 			}
@@ -187,10 +153,10 @@ PrioQue* findAndRemove(List& l, string ID)
 void changePriority(List& l, string ID, int inputPriority)
 {
 	// find the node contain the given ID
-	PrioQue* foundNode = findAndRemove(l, ID);
+	Node* foundNode = findAndRemove(l, ID);
 	// chang its priority and insert it into the LinkedList
 	if (foundNode != NULL) {
-		foundNode->Priority = inputPriority;
+		foundNode->_user.Priority = inputPriority;
 		Insert(l, foundNode);
 	}
 }
@@ -200,11 +166,11 @@ void changePriority(List& l, string ID, int inputPriority)
 // remove a node contains the given ID
 void Remove(List& l, string ID)
 {
-	PrioQue* pre = NULL, * pnext = l.head;
+	Node* pre = NULL, * pnext = l.head;
 
 	// pnext contain the needed node
 	for (; pnext != NULL; pnext = pnext->next) {
-		if (pnext->ID == ID) {
+		if (pnext->_user.ID == ID) {
 			if (pnext == l.head) {
 				l.head = l.head->next;
 			}
@@ -225,7 +191,8 @@ void Remove(List& l, string ID)
 void Extract(List& l)
 {
 	if (!isEmpty(l)) {
-		PrioQue* p = l.head;
+		Node* p = l.head;
 		l.head = l.head->next;
+		delete p;
 	}
 }

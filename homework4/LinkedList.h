@@ -1,26 +1,18 @@
 #pragma once
-#ifndef PRIORITY_H
-#define PRIORITY_H
+#include "User.h"
 #include <iostream>
 using namespace std;
 
-struct PrioQue 
+struct Node
 {
-	string ID;
-	unsigned int Order;
-	unsigned int Priority;
-	PrioQue* next = NULL;
+	User _user;
+	Node* next = NULL;
 };
 
 struct List
 {
-	PrioQue* head = NULL;
+	Node* head = NULL;
 };
-
-//----------------------------------------------------
-
-// compare two node different
-bool Condition(PrioQue* p1, PrioQue* p2);
 
 //-----------------------------------------------------
 
@@ -30,12 +22,12 @@ bool isEmpty(List& root);
 //-----------------------------------------------------
 
 // insert one node into list
-void Insert(List& l, PrioQue* node);
+void Insert(List& l, Node* node);
 
 //----------------------------------------------------------
 
 // delete one node
-void deleteNode(PrioQue* node);
+void deleteNode(Node* node);
 
 // delete all node
 void deleteAllNode(List& l);
@@ -50,16 +42,13 @@ void readFile(string nameFile, List& l);
 
 //----------------------------------------------------------------
 
-// print a node
-void printNode(PrioQue* node);
-
 // print all nodes
 void printConsole(List& l);
 
 //-----------------------------------------------------
 
 // find the node and remove it
-PrioQue* findAndRemove(List& l, string ID);
+Node* findAndRemove(List& l, string ID);
 
 // change the priority of one node contains given priority
 void changePriority(List& l, string ID, int inputPriority);
@@ -73,5 +62,3 @@ void Remove(List& l, string ID);
 
 // remove the node has largest priority
 void Extract(List& l);
-
-#endif
