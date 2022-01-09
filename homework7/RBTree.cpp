@@ -4,7 +4,7 @@ using namespace std;
 
 // Nguon: Bai giang thay Phuong va https://freetuts.net/them-node-moi-vao-cay-do-den-3139.html
 
-RBNode* createNode(int key, int color, RBNode* nil) {
+RBNode* createNode(int key, int color, RBNode* nil) {	// Tao node moi voi gia tri va mau
 	RBNode* p = new RBNode;
 	p->key = key;
 	p->color = color;
@@ -12,18 +12,18 @@ RBNode* createNode(int key, int color, RBNode* nil) {
 	return p;
 }
 
-void Insert(RBNode*& root, int key) {
+void Insert(RBNode*& root, int key) {			// Chen mot gia tri vao cay
 	RBNode* x = createNode(key, 1, nil);
 	RBNode* y = nil;
 	RBNode* z = root;
-	while (z != nil) {
+	while (z != nil) {				// Duyet tim vi tri chen
 		y = z;
 		if (x->key < z->key)
-			z = z->left;
+			z = z->left;			
 		else if (x->key > z->key)
-			z = z->right;
+			z = z->right;			
 		else
-			return;
+			return;				
 	}
 	x->parent = y;
 	if (y == nil) root = x;
@@ -33,10 +33,10 @@ void Insert(RBNode*& root, int key) {
 		else
 			y->right = x;
 	}
-	Insertion_FixUp(root, x);
+	Insertion_FixUp(root, x);			// Sua lai cau truc cay sau khi chen
 }
 
-void rotateLeft(RBNode*& root, RBNode* pt)	// Xoay trai
+void rotateLeft(RBNode*& root, RBNode* pt)		// Xoay trai
 {
 	RBNode* pt_right = pt->right;
 	pt->right = pt_right->left;
@@ -52,7 +52,7 @@ void rotateLeft(RBNode*& root, RBNode* pt)	// Xoay trai
 	pt_right->left = pt;
 	pt->parent = pt_right;
 }
-void rotateRight(RBNode*& root, RBNode* pt)	// Xoay phai
+void rotateRight(RBNode*& root, RBNode* pt)		// Xoay phai
 {
 	RBNode* pt_left = pt->left;
 	pt->left = pt_left->right;
@@ -69,15 +69,15 @@ void rotateRight(RBNode*& root, RBNode* pt)	// Xoay phai
 	pt->parent = pt_left;
 }
 
-void leftAdjust(RBNode*& root, RBNode*& x) {
+void leftAdjust(RBNode*& root, RBNode*& x) {		// Ham phu, sua cau truc khi chen vao cay ben trai cua node ong
 	RBNode* u = x->parent->parent->right;
-	if (u->color == 1) {
+	if (u->color == 1) {				// Truong hop node chu mau do
 		x->parent->color = u->color = 0;
 		x->parent->parent->color = 1;
 		x = x->parent->parent;
 	}
-	else {
-		if (x == x->parent->right) {
+	else {						// Truong hop node chu mau den
+		if (x == x->parent->right) {		
 			x = x->parent;
 			rotateLeft(root, x);
 		}
@@ -87,7 +87,7 @@ void leftAdjust(RBNode*& root, RBNode*& x) {
 	}
 }
 
-void rightAdjust(RBNode*& root, RBNode*& x) {
+void rightAdjust(RBNode*& root, RBNode*& x) {		// Ham phu, sua cau truc khi chen vao cay ben phai cua node ong
 	RBNode* u = x->parent->parent->left;
 	if (u->color == 1) {
 		x->parent->color = u->color = 0;
@@ -115,7 +115,7 @@ void Insertion_FixUp(RBNode*& root, RBNode* x) {		// Sua cau truc cay sau khi ch
 	root->color = 0;
 }
 
-RBNode* createTree(int a[], int n) {
+RBNode* createTree(int a[], int n) {				// Tao cay do den tu mang int
 	RBNode* root = createNode(a[0], 0, nil);
 	for (int i = 1; i < n; i++) {
 		Insert(root, a[i]);
@@ -123,7 +123,7 @@ RBNode* createTree(int a[], int n) {
 	return root;
 }
 
-RBNode* lookUp(RBNode* root, int key) {				
+RBNode* lookUp(RBNode* root, int key) {				// Tim kiem node co gia tri key
 	RBNode* p = root;
 	while (p->key != key && p != nil) {
 		if (key > p->key)	p = p->right;
@@ -132,7 +132,7 @@ RBNode* lookUp(RBNode* root, int key) {
 	return p;
 }
 
-int BlackHeight(RBNode* root) {
+int BlackHeight(RBNode* root) {					// Chieu cao den cua cay
 	int cnt = 1;
 	RBNode* p = root;
 	while (p->left != nil) {
@@ -142,12 +142,12 @@ int BlackHeight(RBNode* root) {
 	return cnt;
 }
 
-int Height(RBNode* root) {
+int Height(RBNode* root) {					// Chieu cao cua cay
 	if (root == nil) return 0;
 	return 1 + max(Height(root->left), Height(root->right));
 }
 
-void Remove(RBNode* root, int key) {
+void Remove(RBNode* root, int key) {				// Xoa mot node co gia tri key
 	RBNode* z = lookUp(root, key);
 	if (z == nil)	return;
 	RBNode* y = (z->left == nil) || (z->right == nil) ? z : TreeSuccessor(z);
@@ -180,7 +180,7 @@ void Del_FixUp(RBNode*& root, RBNode*& x) {			// Sua cau truc cay sau khi xoa
 	x->color = 0;
 }
 
-void del_leftAdjust(RBNode*& root, RBNode*& x) {
+void del_leftAdjust(RBNode*& root, RBNode*& x) {		// Ham phu, sua cau truc khi xoa node con ben trai
 	RBNode* w = x->parent->right;
 	if (w->color == 1) {
 		w->color = 0;
@@ -206,7 +206,7 @@ void del_leftAdjust(RBNode*& root, RBNode*& x) {
 		x = root;
 	}
 }
-void del_rightAdjust(RBNode*& root, RBNode*& x) {
+void del_rightAdjust(RBNode*& root, RBNode*& x) {		// Ham phu, sua cau truc khi xoa node con ben phai
 	RBNode* w = x->parent->left;
 	if (w->color == 1) {
 		w->color = 0;
@@ -233,7 +233,7 @@ void del_rightAdjust(RBNode*& root, RBNode*& x) {
 	}
 }
 
-void deleteTree(RBNode* root)
+void deleteTree(RBNode* root)					// Xoa cay va giai phong vung nho
 {
 	if (root == nil) return;
 	deleteTree(root->left);
