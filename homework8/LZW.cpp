@@ -50,6 +50,7 @@ vector<newUNICODE> convertArraytToVector(int n, char** str)
 }
 
 // print the compression ratio
+// take the number of bits is 9
 void printTheCompressionRatio(const int before, const int after)
 {
 	double ptemp = 1 - double((double(after * 9) / double(before * 8)));

@@ -1,8 +1,6 @@
-// source code: https://www.geeksforgeeks.org/sparse-table
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <string.h>
-#include <math.h>
 #include "Lib.h"
 using namespace std;
 
@@ -112,29 +110,39 @@ int queryMax(int L, int R, vector<vector<int>> table)
 
 void Make(List& l, int argc, char** argv)
 {
-	deleteSimilarNode(l, argv[2]);
+    deleteSimilarNode(l, argv[2]);
 
-	vector<int> a = ConvertFile(argc, argv);
-	vector<vector<int>> arr;
-	int n = a.size();
+    int _count = 0;
+    for (Node* p = l.head; p != NULL; p = p->next) {
+        ++_count;
+    }
 
-    if (strcmp(argv[3], "MIN") == 0) {
-		arr = buildMinSparseTable(a, n);
-	}
-	else if (strcmp(argv[3], "MAX") == 0) {
-		arr = buildMaxSparseTable(a, n);
-	}
-	else if (strcmp(argv[3], "GCD") == 0) {
-		arr = buildGCDSparseTable(a, n);
-	}
-    
-    // make new node, print and add to List
-    Node* ptemp = createNode(argv[2], argv[3], arr);
-    printTable(ptemp);
-    addTail(l, ptemp);
-    
-    // save table
-	writeFile(l);
+    if (_count < 5) {
+        vector<int> a = ConvertFile(argc, argv);
+        vector<vector<int>> arr;
+        int n = a.size();
+
+        if (strcmp(argv[3], "MIN") == 0) {
+            arr = buildMinSparseTable(a, n);
+        }
+        else if (strcmp(argv[3], "MAX") == 0) {
+            arr = buildMaxSparseTable(a, n);
+        }
+        else if (strcmp(argv[3], "GCD") == 0) {
+            arr = buildGCDSparseTable(a, n);
+        }
+
+        // make new node, print and add to List
+        Node* ptemp = createNode(argv[2], argv[3], arr);
+        printTable(ptemp);
+        addTail(l, ptemp);
+
+        // save table
+        writeFile(l);
+    }
+    else {
+        cout << "Over 5 tables !\n";
+    }
 }
 
 int Query(List& l, char* name, int col, int row)
@@ -163,8 +171,6 @@ int Query(List& l, char* name, int col, int row)
 
 //------------------------------------------------------------------------
 
-
-
 int main(int argc, char** argv)
 {
     List l;
@@ -174,13 +180,15 @@ int main(int argc, char** argv)
 
     // do works
     // make sparse table
+    // if has 5 table, and decide to make a new table has different name, don't do anything
     if (strcmp(argv[1], "make") == 0) {
         Make(l, argc, argv);
     }
     // query sparse table
+    // we define the index is start from 1
     else if (strcmp(argv[1], "query") == 0) {
         try {
-            cout << Query(l, argv[2], atoi(argv[3]), atoi(argv[4])) << endl;
+            cout << Query(l, argv[2], atoi(argv[3]) - 1, atoi(argv[4]) - 1) << endl;
         }
         catch (const char* str) {
             cout << str << endl;

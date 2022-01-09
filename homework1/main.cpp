@@ -45,6 +45,10 @@ pair<int, int> FindValue(int* Arr, int size, int x)
 
 int main(int argc, char** argv)
 {
+    // we define the start index from 1
+    // and if we don't find the value x,
+    // return -1 and the number of loop use to discover this
+    
     // convert data into array
     int* Arr = ConvertFile(argc, argv);
     // get the pos and times of loop
